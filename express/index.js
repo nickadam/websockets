@@ -17,7 +17,6 @@ const authenticate = (request, next) => {
 const app = express()
 
 const wsSubjects = {}
-const wsPingIntervals = {}
 
 app.use(express.json())
 
@@ -26,7 +25,7 @@ wss.on('connection', (ws, request, user) => {
 
   if(!wsSubjects[user.user]) wsSubjects[user.user] = new Subject()
 
-  const keepalive = interval(1000 * 30).subscribe(_ => { // 30 seconds
+  const keepalive = interval(1000 * 30).subscribe(() => { // 30 seconds
     if (ws.connected === false){
       console.log(`${(new Date).toISOString()} disconnecting ${user.user} connection ${user.connection_id} with ${subject.observers.length} observers`)
       ws.terminate()
@@ -34,7 +33,7 @@ wss.on('connection', (ws, request, user) => {
     }
     ws.connected = false
     console.log(`${(new Date).toISOString()} sending ping for ${user.user} connection ${user.connection_id} with ${subject.observers.length} observers`)
-    ws.ping(_ => {})
+    ws.ping(() => {})
   })
 
   const subject = wsSubjects[user.user]
@@ -69,7 +68,7 @@ wss.on('connection', (ws, request, user) => {
     })
   })
 
-  ws.on('pong', _ => {
+  ws.on('pong', () => {
     console.log(`${(new Date).toISOString()} received pong for ${user.user} connection ${user.connection_id} with ${subject.observers.length} observers`)
     ws.connected = true
   })

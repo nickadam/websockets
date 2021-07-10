@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
-import { interval, of } from 'rxjs'
-import { delay, tap } from 'rxjs/operators'
+import { interval } from 'rxjs'
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket'
 
 @Component({
@@ -20,9 +18,7 @@ export class WsComponent implements OnInit, OnDestroy {
   initialBackoff = 1000 // 1 second
   maxBackoff = (1000 * 5 * 60) // 5 minutes
 
-  constructor(
-    private activatedRoute: ActivatedRoute
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
     interval(1000).subscribe(_ => {
