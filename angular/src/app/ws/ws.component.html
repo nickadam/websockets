@@ -1,0 +1,18 @@
+<p>ws works! {{user}} {{data}}</p>
+<div>
+  user: <input [(ngModel)]="user">
+  <button (click)="onConnect()">Connect</button>
+  <button (click)="onDisconnect()">Disconnect</button>
+</div>
+<div>
+  data: <input [(ngModel)]="data">
+  <button (click)="onUpdate()">update</button>
+</div>
+
+{{error}}
+<div>
+  {{backoff}}
+</div>
+<div>
+  {{initialBackoff}}
+</div>
